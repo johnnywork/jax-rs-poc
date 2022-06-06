@@ -1,0 +1,12 @@
+/.apt_generated/
+/.apt_generated_tests/
+target/
+/WebContent/classes/
+/WebContent/lib/
+.classpath
+.factorypath
+.project
+.settings
+.idea/
+*.iml
+/tools/elo-communicator-test/target

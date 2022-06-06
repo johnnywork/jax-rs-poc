@@ -1,0 +1,1954 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ELOrest",
+    "description": "This is a REST API for ELO.\n\nAll API endpoints require authentication, this can be either done using basic authentication or by providing a ticket either in the query (adding `&ticket=...`), in a header or in a cookie.\n\nFor browser based apps, you can also establish a session using the `/api/login` endpoint. Please refer to the User Guide for more details like enabling CORS.\n\nIt should be noted that using this REST API behind the IX proxy plugin automatically shares the login of the web client or similar clients.\n",
+    "version": "20.04.000"
+  },
+  "servers": [
+    {
+      "url": "https://sb006902.cembraintra.ch:9093/rest-Archiv1",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Login",
+      "description": "These login/logout methods are only for browser based use cases. They will add/remove the ticket as 'HTTP-Only' cookie."
+    }
+  ],
+  "paths": {
+    "/api/members/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Creates a new resource",
+        "operationId": "add",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ID"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Deprecated",
+        "description": "Since the IX Proxy Plugin does not forward PATCH requests, it is preferable to use the PUT operation.",
+        "operationId": "set_5",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/files": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Get a file by path",
+        "description": "The path should start with either / or ¶.",
+        "operationId": "byPath",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimpleSord"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Creates a new resource",
+        "operationId": "add_3",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimpleSord"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ID"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Deprecated",
+        "description": "Since the IX Proxy Plugin does not forward PATCH requests, it is preferable to use the PUT operation.",
+        "operationId": "set",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimpleSord"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/system/masks/{id}": {
+      "get": {
+        "tags": [
+          "Masks"
+        ],
+        "summary": "Get the resource identified by the ID or GUID",
+        "operationId": "get_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Mask"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Masks"
+        ],
+        "summary": "Updates the resource identified by the ID or GUID",
+        "operationId": "set_4",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Mask"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Masks"
+        ],
+        "summary": "Deletes the resource identified by the ID or GUID",
+        "operationId": "delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/files/{id}": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Get the resource identified by the ID or GUID",
+        "operationId": "get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimpleSord"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "This enpoints makes it possible to update several things at once.",
+        "description": "The updatable parts are 'infos' and 'keywording/metadata'. You can also provide a new document version by providing a public URL using `content.url`. Please note that the ACL is read-only.",
+        "operationId": "set_7",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimpleSord"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Deletes the resource identified by the ID or GUID",
+        "operationId": "delete_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/files/{id}/download": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Downloads the document",
+        "description": "If shared as a link, an authentication demand might pop up.",
+        "operationId": "download",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/members/groups": {
+      "post": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "Creates a new resource",
+        "operationId": "add_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Group"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ID"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "Deprecated",
+        "description": "Since the IX Proxy Plugin does not forward PATCH requests, it is preferable to use the PUT operation.",
+        "operationId": "set_3",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Group"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/members/groups/_ids": {
+      "get": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "Retrieves all existing resource ids.",
+        "operationId": "ids",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ID"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/system/masks": {
+      "post": {
+        "tags": [
+          "Masks"
+        ],
+        "summary": "Creates a new resource",
+        "operationId": "add_2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Mask"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ID"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Masks"
+        ],
+        "summary": "Deprecated",
+        "description": "Since the IX Proxy Plugin does not forward PATCH requests, it is preferable to use the PUT operation.",
+        "operationId": "set_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Mask"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/system/masks/_ids": {
+      "get": {
+        "tags": [
+          "Masks"
+        ],
+        "summary": "Retrieves all existing resource ids.",
+        "operationId": "ids_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ID"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/misc/functions/{name}": {
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Calls a registered function",
+        "operationId": "executeRegisteredFunction",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/search/keywording": {
+      "post": {
+        "tags": [
+          "Search"
+        ],
+        "summary": "Search based on keywording/metadata",
+        "description": "Searches the keywording based on key/values provided as an object like `{\"NAME\":\"value\",\"other\":\"whatever\"}` in the request body. Limited to 1000 results max.",
+        "operationId": "searchKeywording",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SordInfo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/system/colors/_all": {
+      "get": {
+        "tags": [
+          "Colors"
+        ],
+        "summary": "Retrieves all existing resource, including their content.",
+        "description": "Depending on the archive size and the type of the resource, this might be an expensive operation. Use carefully!",
+        "operationId": "items",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Color"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/members/users/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get the resource identified by the ID or GUID",
+        "operationId": "get_3",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Updates the resource identified by the ID or GUID",
+        "operationId": "set_2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Deletes the resource identified by the ID or GUID",
+        "operationId": "delete_3",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/logout": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "summary": "Interactive logout",
+        "description": "To be used in third-party web applications. Please read the documentation regarding CORS.",
+        "operationId": "logout",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/files/{id}/content": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "To download the file, please use `/api/files/{id}/download`",
+        "description": "This enpoint will likely be replaced in the future to return the document's information, the same as the `content` part in `/api/files{id}`.",
+        "operationId": "getContent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": true
+      },
+      "post": {
+        "tags": [
+          "Files"
+        ],
+        "operationId": "upload",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "versionLabel": {
+                    "type": "string"
+                  },
+                  "versionComment": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/files/{parentId}": {
+      "post": {
+        "tags": [
+          "Files"
+        ],
+        "description": "Adds a new directory or document (if `file` is provided).",
+        "operationId": "addSord",
+        "parameters": [
+          {
+            "name": "parentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "maskId": {
+                    "type": "string"
+                  },
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "versionLabel": {
+                    "type": "string"
+                  },
+                  "versionComment": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ID"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/members/users/_ids": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Retrieves all existing resource ids.",
+        "operationId": "ids_2",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ID"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/files/{id}/info": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Get the basic information about this file.",
+        "operationId": "getInfo",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/SordInfo"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Updates the basic information about this file.",
+        "description": "Only 'name', 'desc' and 'dateCustom' can be updated.",
+        "operationId": "setInfo",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SordInfo"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/system/colors/{id}": {
+      "get": {
+        "tags": [
+          "Colors"
+        ],
+        "summary": "Get the resource identified by the ID or GUID",
+        "operationId": "get_2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Color"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Colors"
+        ],
+        "summary": "Updates the resource identified by the ID or GUID",
+        "operationId": "set_6",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Color"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Colors"
+        ],
+        "summary": "Deletes the resource identified by the ID or GUID",
+        "operationId": "delete_2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/files/{id}/keywording": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Get the file's keywording/metadata",
+        "operationId": "getKeywording",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Keywording"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Updates the file's keywording/metadata and/or changes the mask",
+        "description": "Changing the mask is possible using either the 'maskId' or 'maskNameOriginal'.",
+        "operationId": "setKeywording",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Keywording"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/files/{id}/children": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Get the children files of the given folder.",
+        "description": "Limited to 1000 entries max.",
+        "operationId": "getChildren",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChildInfo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/system/colors/_ids": {
+      "get": {
+        "tags": [
+          "Colors"
+        ],
+        "summary": "Retrieves all existing resource ids.",
+        "operationId": "ids_3",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ID"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/system/colors": {
+      "post": {
+        "tags": [
+          "Colors"
+        ],
+        "summary": "Creates a new resource",
+        "operationId": "add_4",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Color"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ID"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Colors"
+        ],
+        "summary": "Deprecated",
+        "description": "Since the IX Proxy Plugin does not forward PATCH requests, it is preferable to use the PUT operation.",
+        "operationId": "set_8",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Color"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/members/groups/_all": {
+      "get": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "Retrieves all existing resource, including their content.",
+        "description": "Depending on the archive size and the type of the resource, this might be an expensive operation. Use carefully!",
+        "operationId": "items_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Group"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/members/groups/{id}": {
+      "get": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "Get the resource identified by the ID or GUID",
+        "operationId": "get_4",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Group"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "Updates the resource identified by the ID or GUID",
+        "operationId": "set_9",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Group"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "Deletes the resource identified by the ID or GUID",
+        "operationId": "delete_4",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/login": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "summary": "Interactive login",
+        "description": "To be used in third-party web applications. Please read the documentation regarding CORS.",
+        "operationId": "login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CredentialsWithLang"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/search": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "summary": "Search based on full-text",
+        "description": "Limited to 1000 results max.",
+        "operationId": "search",
+        "parameters": [
+          {
+            "name": "words",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "where",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "TITLE",
+                "DOCUMENT",
+                "KEYWORDING",
+                "ANYWHERE"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SordInfo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/system/masks/_all": {
+      "get": {
+        "tags": [
+          "Masks"
+        ],
+        "summary": "Retrieves all existing resource, including their content.",
+        "description": "Depending on the archive size and the type of the resource, this might be an expensive operation. Use carefully!",
+        "operationId": "items_2",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Mask"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/files/{id}/acl": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Get the file's ACL",
+        "operationId": "getACL",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Permission"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/members/users/_all": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Retrieves all existing resource, including their content.",
+        "description": "Depending on the archive size and the type of the resource, this might be an expensive operation. Use carefully!",
+        "operationId": "items_3",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/files/{id}/versions": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Retrieves the versions of the given document",
+        "operationId": "getVersions",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Version"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ID": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "change_password": {
+            "type": "string",
+            "enum": [
+              "SHOULD_CHANGE",
+              "MUST_CHANGE"
+            ]
+          },
+          "email": {
+            "type": "string"
+          },
+          "nologin": {
+            "type": "boolean"
+          },
+          "online": {
+            "type": "boolean"
+          },
+          "memberOf": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ID"
+            }
+          }
+        }
+      },
+      "ChildInfo": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isDir": {
+            "type": "boolean"
+          },
+          "desc": {
+            "type": "string"
+          },
+          "lock": {
+            "type": "string"
+          },
+          "ownerName": {
+            "type": "string"
+          },
+          "access": {
+            "type": "string"
+          }
+        }
+      },
+      "Content": {
+        "type": "object",
+        "properties": {
+          "mime": {
+            "type": "string"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "lastModified": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "Keywording": {
+        "type": "object",
+        "properties": {
+          "maskId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "maskNameOriginal": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "map": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Permission": {
+        "type": "object",
+        "properties": {
+          "member": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "USER",
+              "GROUP",
+              "OTHER"
+            ]
+          },
+          "access": {
+            "type": "string"
+          }
+        }
+      },
+      "SimpleSord": {
+        "type": "object",
+        "properties": {
+          "info": {
+            "$ref": "#/components/schemas/SordInfo"
+          },
+          "acl": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Permission"
+            }
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChildInfo"
+            }
+          },
+          "keywording": {
+            "$ref": "#/components/schemas/Keywording"
+          },
+          "versions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Version"
+            }
+          },
+          "content": {
+            "$ref": "#/components/schemas/Content"
+          }
+        }
+      },
+      "SordInfo": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isDir": {
+            "type": "boolean"
+          },
+          "desc": {
+            "type": "string"
+          },
+          "lock": {
+            "type": "string"
+          },
+          "ownerName": {
+            "type": "string"
+          },
+          "access": {
+            "type": "string"
+          },
+          "parentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dateArchived": {
+            "type": "string"
+          },
+          "dateCustom": {
+            "type": "string"
+          },
+          "dateModified": {
+            "type": "string"
+          }
+        }
+      },
+      "Version": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "committer": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "isWorkVersion": {
+            "type": "boolean"
+          },
+          "ext": {
+            "type": "string"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "Group": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "parentGroups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ID"
+            }
+          },
+          "childGroups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ID"
+            }
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ID"
+            }
+          },
+          "rights": {
+            "type": "string",
+            "enum": [
+              "GUEST",
+              "RESTRICTED",
+              "NORMAL",
+              "EXTENDED",
+              "ADMINISTRATOR"
+            ]
+          }
+        }
+      },
+      "Field": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "key": {
+            "type": "string"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "label": {
+            "type": "string"
+          },
+          "isRequired": {
+            "type": "boolean"
+          },
+          "isHidden": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Mask": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "guid": {
+            "type": "string"
+          },
+          "originalName": {
+            "type": "string"
+          },
+          "forDocs": {
+            "type": "boolean"
+          },
+          "forFolders": {
+            "type": "boolean"
+          },
+          "forSearch": {
+            "type": "boolean"
+          },
+          "isUsed": {
+            "type": "boolean"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Field"
+            }
+          }
+        }
+      },
+      "Color": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "hex": {
+            "type": "string"
+          }
+        }
+      },
+      "CredentialsWithLang": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "lang": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "ticket": {
+        "type": "apiKey",
+        "name": "ticket",
+        "in": "header"
+      },
+      "BasicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "security": [
+    {
+      "BasicAuth": []
+    }
+  ]
+}
